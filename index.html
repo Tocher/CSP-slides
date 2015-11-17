@@ -1,0 +1,259 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+	<title>Content Security Policy</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=792, user-scalable=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link rel="stylesheet" href="node_modules/yandex/styles/screen.css">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body class="list">
+	<header class="caption">
+		<h1>Яндекс</h1>
+        <p>Казаков Сергей, <a href="//yandex.ru">Яндекс</a></p>
+
+	</header>
+
+	<section id="section" class="slide cover"><div><h2>Яндекс</h2>
+
+</div></section>
+<section class="slide shout" id="cover"><div><h2>Content Security Policy</h2>
+
+<div class="s">
+</div>
+<div class="info">
+    <p class="author">
+    <span style="color:#f00;">К</span>азаков Сергей, <br>
+    Младший разработчик интерфейсов
+    </p>
+</div>
+
+</div></section>
+
+<section class="slide center" ><div><h2>OWASP Top</h2>
+    <ul>
+        <li>A1 Injection</li>
+		<li>A2 Broken Authentication and Session Management</li>
+		<li>A3 Cross-Site Scripting (XSS)</li>
+    </ul>
+</div></section>
+
+<section class="slide center" ><div><h2>Проблемы безопасности в вебе</h2>
+    <ul>
+        <li>Cross Site Scripting (XSS) - исполнение вредоносного кода в браузере пользователя</li>
+        <li>Вредоносные расширения в браузере</li>
+    </ul>
+    <img src="pictures/ads.gif" class="next" style="bottom:40px;left:25%;" />
+</div></section>
+
+<section class="slide shout csp_bg" id="cover2">
+</section>
+
+<section class="slide"><div><h2>Что дает CSP</h2>
+    <ul>
+        <li>Помогает отлавливать и блокировать некоторые виды атак XSS</li>
+        <li>Ещё один уровень в защите на стороне фронтенда</li>
+        <li>Отчеты</li>
+    </ul>
+</div></section>
+
+<section class="slide"><div><h2>Немного истории</h2>
+    <ul>
+        <li>Разработан в Mozilla Foundation</li>
+        <li>Впервые появился в Firefox 4 (март 2011 года)</li>
+    </ul>
+</div></section>
+
+<section class="slide"><div><h2>Поддержка браузерами</h2>
+    <ul>
+        <li>Chrome 25+ Firefox 23+ Opera 15+ Safari 7+</li>
+        <li class="next">Android 4.4+</li>
+        <li class="next">IE 10+ Firefox 4-22:
+            <ul><li>поддерживают нестандартный заголовок X-Content-Security-Policy и имеют частичную поддержку стандартного </li></ul>
+        </li>
+        <li class="next">Chrome 14-24, Safari 5-7:
+            <ul><li>поддерживают нестандартный заголовок X-Webkit-CSP и имеют частичную поддержку стандартного.</li></ul>
+        </li>
+    </ul>
+    <div class="next CSP1">87.67% (+3%)</div>
+</div></section>
+
+<section class="slide with-big-quote active"><div><h2>&nbsp;</h2>
+    <blockquote>
+        <p>Как использовать?</p>
+    </blockquote>
+</div></section>
+
+<section class="slide"><div><h2>Заголовки</h2>
+    <ul>
+        <li>Content-Security-Policy: &lt;политика&gt;</li>
+        <li>Content-Security-Policy-Report-Only: &lt;политика&gt;</li>
+        <li>X-Content-Security-Policy - для IE10+ и старых браузеров</li>
+    </ul>
+</div></section>
+
+<section class="slide center"><div><h2>Директивы</h2>
+    <ul style="clear:none;margin-right:30%;">
+        <li>default-src</li>
+		<li>base-uri</li>
+		<li>child-src</li>
+		<li>frame-src</li>
+		<li>font-src</li>
+		<li>img-src</li>
+    </ul>
+    <ul style="clear:none;">
+		<li>connect-src</li>
+		<li>media-src</li>
+		<li>object-src</li>
+		<li>report-uri</li>
+		<li>script-src</li>
+		<li>style-src</li>
+    </ul>
+</div></section>
+
+<section class="slide"><div><h2>Ключевые слова</h2>
+    <ul>
+        <li>'self' - текущий хост</li>
+		<li>'none' - ничего нельзя</li>
+		<li>'unsafe-inline'</li>
+		<li>'unsafe-eval'</li>
+    </ul>
+    <p>для Lo-Dash нужен unsafe-eval, он активно использует кодогенерацию</p>
+</div></section>
+
+<section class="slide"><div><h2>unsafe-inline</h2>
+<pre class="language-javascript"><code class="language-javascript">
+	&lt;script&gt;
+	    alert('knock knock')
+	&lt;/script&gt;
+
+	&lt;a onclick="alert('knock knock')"&gt;link&lt;/a&gt;
+
+
+</code></pre>
+</div></section>
+
+<section class="slide with-big-quote active"><div><h2>&nbsp;</h2>
+    <blockquote>
+        <p>CSP-Tester</p>
+    </blockquote>
+    <img src='pictures/mouse.png' style="position:absolute;right:50px;top:-110px;" />
+</div></section>
+
+<section class="slide with-big-quote active"><div><h2>&nbsp;</h2>
+    <blockquote>
+        <p>Отчет</p>
+    </blockquote>
+</div></section>
+
+<section class="slide"><div><h2>Пример</h2>
+	<pre class="language-javascript"><code class="language-javascript">
+	{
+	    "csp-report": {
+	        "document-uri": "http://localhost:3000/",
+	        "referrer": "",
+	        "violated-directive": "default-src \"self\"",
+	        "effective-directive": "img-src",
+	        "original-policy": "default-src \"self\";
+	        	report-uri http://localhost:3000",
+	        "blocked-uri": "https://yastatic.net",
+	        "status-code": 200
+	    }
+	}
+	</code></pre>
+</div></section>
+
+<section class="slide with-big-quote active"><div><h2>&nbsp;</h2>
+    <blockquote>
+        <p>CSP 2.0</p>
+        <img src="pictures/raccon.jpg" class="gifimg" width="500" />
+    </blockquote>
+    <p class="note">лучше, быстрее, мощнее!</p>
+</div></section>
+
+<section class="slide"><div><h2>CSP 2.0</h2>
+    <ul>
+        <li>Chrome 36+, FF 31+</li>
+		<li>Можно указывать не только домены, но и пути </li>
+		<li>Отчет стал подробнее</li>
+		<li>Политику можно указывать в &lt;meta&gt;</li>
+		<li>Разрешение инлайн скриптов через nonce- или hash-</li>
+		<li>Больше директив. form-action, plugin-types, frame-ancestors</li>
+    </ul>
+    <div class="next CSP1">56.26% (+2.1%)</div>
+</div></section>
+
+<section class="slide with-big-quote active"><div><h2>&nbsp;</h2>
+    <blockquote>
+        <p>Бонус</p>
+    </blockquote>
+</div></section>
+
+<section class="slide"><div><h2>План внедрения</h2>
+    <ol style="margin-left:40px;">
+        <li>Оценка списка загружаемых ресурсов.</li>
+		<li>Внедрение заголовка Content-Security-Policy-Report-Only.</li>
+		<li>Анализ логов.</li>
+		<li>Исправление политики.</li>
+		<li>Внедрение заголовка Content-Security-Policy (переход в режим блокировки).</li>
+		<li>Счастье пользователей :)</li>
+    </ol>
+</div></section>
+
+<section class="slide"><div><h2>Советы</h2>
+    <ul>
+        <li>Использовать одновременно Content-Security-Pocily и Report-Only </li>
+		<li>Комментировать политику</li>
+		<li>default-src: 'none' - По умолчанию ничего нельзя</li>
+		<li>CSP не распространяется на дочерние фреймы</li>
+		<li>Не использовать ' * '</li>
+    </ul>
+</div></section>
+
+
+<section class="slide shout active" id="contacts"><div><h2>Спасибо!</h2>
+
+<div class="info">
+<p class="author"><span style="color:#f00;">К</span>азаков Сергей</p>
+<p class="position">Младший разработчик интерфейсов</p>
+
+    <div class="contacts">
+        <p class="contacts-left phone">+375 (25) 769-88-02</p>
+        <p class="contacts-left mail" style="margin-top:80px;">tocher@yandex-team.ru</p>
+        <p class="contacts-left github" style="margin-top:170px;">Tocher</p>
+        <p class="contacts-right contacts-top"><a href="http://bit.ly/yasb-kiev-csp-tester">bit.ly/yasb-kiev-csp-tester</a></p>
+        <p class="contacts-right contacts-bottom"><a href="http://bit.ly/yasb-kiev-csp-reporter">bit.ly/yasb-kiev-csp-reporter</a></p>
+
+        <!-- <p class="contacts-right contacts-bottom vk">vk</p> -->
+        <!--<p class="contacts-right facebook">facebook</p>-->
+    </div>
+</div>
+</div></section>
+
+<section class="slide with-big-quote"><div><h2>&nbsp;</h2>
+    <blockquote>
+        <p>Adblock?</p>
+    </blockquote>
+</div>
+
+        <img src="pictures/legen.jpg" style="position:absolute;right:0px;bottom:0;" />
+</section>
+
+<section class="slide cover" id="22"><div>
+	<img class="nooo" style="top: 70px;z-index:1;" src="pictures/nooo.jpg" width="1024" height="500" alt="" onclick="this.src='pictures/nooo1.gif'">
+	<h2 style='position:absolute;color:#fff;z-index:2;margin-top:40px;'>Неееееет</h2>
+</div></section>
+
+
+	<!--
+		To hide progress bar from entire presentation
+		just remove “progress” element.
+		-->
+	<div class="progress"><div></div></div>
+	<script src="node_modules/shower-core/shower.min.js"></script>
+	<script src="prism/prism.js"></script>
+	<!-- Copyright © 2014 Yours Truly, Famous Inc. -->
+	<!-- Photos by John Carey, fiftyfootshadows.net -->
+</body>
+</html>
